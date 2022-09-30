@@ -9,7 +9,7 @@ $crud = new Crud;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Buku</title>
+    <title>Data Obat</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@ $crud = new Crud;
      {
         $id = $_GET['id'];
 
-        $update = $crud->read_data('apotik');
+        $update = $crud->read_data('apotik', 'nama', $id);
         foreach ($update as $upd) {
             $nama = $upd['nama'];
             $kodeobat = $upd['kodeobat'];
@@ -42,7 +42,7 @@ $crud = new Crud;
 ?>
 
 <h1>Tambah Data Obat</h1>
-    <form action="" method="post">
+    <form action="simpan_obat.php" method="post">
     <table>
         <tr>
             <td>Kode Obat</td>
@@ -115,10 +115,10 @@ $crud = new Crud;
 
         <?php
         
-        $apotik = $crud->read_data('apotik');
+        $update = $crud->read_data('apotik', null, null);
         $no = 1;
 
-        foreach( $apotik as $apt) {
+        foreach( $update as $apt) {
          ?>
         <tr>
             <td><?php echo $no++; ?></td>

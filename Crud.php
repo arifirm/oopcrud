@@ -9,9 +9,9 @@ class Crud extends Koneksi
         parent::__construct();
     }
 
-     public function read_data($apotik,$id,$id_value)
+     public function read_data($tabel,$id,$id_value)
     {
-        $query = "SELECT * FROM $apotik";
+        $query = "SELECT * FROM $tabel";
         if($id!=null)
         {
             $query .= "WHERE $id='" .$id_value. "'";
@@ -28,13 +28,13 @@ class Crud extends Koneksi
         }
         return $rows;
     }
-    public function simpan($apotik,$data)
+    public function simpan($tabel,$data)
     {
         $columns = implode(", ", array_keys($data));
         $escaped_values = array_map('mysql_real_escape_string', array_values($data));
         foreach ($escaped_values as $idx=>$data) $escaped_values[$idx] = "'".$data."'";
         $values = implode(", ", $escaped_values);
-        $query = "INSERT INTO $apotik ($columns) VALUES ($values)";
+        $query = "INSERT INTO $tabel ($columns) VALUES ($values)";
 
         $hasil = $this->conn->query($query);
         if($hasil)
@@ -46,9 +46,9 @@ class Crud extends Koneksi
             return false;
         }
     }
-    public function update($apotik,$data,$id,$id_value)
+    public function update($tabel,$data,$id,$id_value)
     {
-        $query = "UPDATE $apotik SET";
+        $query = "UPDATE $tabel SET";
         $query .= implode(',', $data);
         $query .= "WHERE $id='" .$id_value. "'";
         $hasil = $this->conn->query($query);
@@ -61,9 +61,9 @@ class Crud extends Koneksi
             return false;
         }
     }
-    public function delete($apotik, $id, $id_value)
+    public function delete($tabel, $id, $id_value)
     {
-         $query = "DELETE FROM $apotik WHERE $id='" .$id_value. "'";
+         $query = "DELETE FROM $tabel WHERE $id='" .$id_value. "'";
          $hasil = $this->conn->query($query);
          if($hasil)
         {
